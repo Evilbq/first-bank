@@ -1,525 +1,670 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>First Bank | Personal Banking</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First Bank | Personal Banking</title>
+  <style>
+    :root {
+      --navy: #0f2744;
+      --navy-light: #1a3a5c;
+      --gold: #c9a227;
+      --gold-soft: #d4af37;
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --text: #1a2b3c;
+      --muted: #6b7c8f;
+      --border: #e4e8ee;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(15, 39, 68, 0.06);
+      --shadow-soft: 0 2px 12px rgba(15, 39, 68, 0.04);
+    }
 
-<style>
-* { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f5f8;
-  color: #172b43;
-}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-header {
-  background: #102b45;
-  color: white;
-  padding: 22px 6%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    /* Header */
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
 
-.brand {
-  font-size: 23px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
+    .brand {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
 
-.brand span { color: #e6bd65; }
+    .brand span {
+      color: var(--gold);
+      font-weight: 500;
+    }
 
-.container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
+    .header-right {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.3px;
+    }
 
-.auth {
-  max-width: 440px;
-  margin: 35px auto;
-  background: white;
-  padding: 32px;
-  border-radius: 14px;
-  box-shadow: 0 5px 25px #152b4312;
-}
+    /* Main layout */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
 
-h2 { margin-top: 0; }
+    /* Auth card */
+    .auth {
+      max-width: 420px;
+      margin: 60px auto 0;
+      background: var(--card);
+      padding: 40px 36px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
 
-input {
-  width: 100%;
-  padding: 14px;
-  margin: 9px 0;
-  border: 1px solid #d8dee7;
-  border-radius: 7px;
-  font-size: 15px;
-}
+    .auth h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
 
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 7px;
-  padding: 13px 18px;
-  font-weight: bold;
-}
+    .auth p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
 
-.primary {
-  background: #102b45;
-  color: white;
-  width: 100%;
-  margin-top: 12px;
-}
+    input {
+      width: 100%;
+      padding: 13px 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      background: #fafbfc;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
 
-.switch {
-  background: transparent;
-  color: #a47b2e;
-  padding: 5px;
-}
+    input:focus {
+      outline: none;
+      border-color: var(--navy);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(15, 39, 68, 0.08);
+    }
 
-.hidden { display: none !important; }
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
 
-.message {
-  color: #bd3333;
-  font-size: 13px;
-  margin-top: 10px;
-}
+    .primary {
+      background: var(--navy);
+      color: white;
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+    }
 
-.welcome { margin-bottom: 25px; }
+    .primary:hover {
+      background: var(--navy-light);
+    }
 
-.balance {
-  background: linear-gradient(120deg,#102b45,#1e486b);
-  color: white;
-  padding: 30px;
-  border-radius: 15px;
-  margin-bottom: 25px;
-}
+    .switch {
+      background: transparent;
+      color: var(--gold);
+      padding: 0;
+      font-weight: 500;
+    }
 
-.balance small { color: #d4dfeb; }
+    .switch:hover {
+      color: var(--gold-soft);
+      text-decoration: underline;
+    }
 
-.amount {
-  font-size: clamp(28px,5vw,40px);
-  font-weight: bold;
-  margin: 12px 0;
-}
+    .auth-footer {
+      margin-top: 22px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+    }
 
-.details, .panel {
-  background: white;
-  padding: 23px;
-  border-radius: 13px;
-  margin-bottom: 22px;
-  box-shadow: 0 3px 15px #152b4309;
-}
+    .message {
+      color: #b91c1c;
+      font-size: 0.875rem;
+      margin-top: 14px;
+      text-align: center;
+    }
 
-.detail-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 13px 0;
-  border-bottom: 1px solid #edf0f4;
-}
+    .hidden {
+      display: none !important;
+    }
 
-.detail-row:last-child { border: none; }
+    /* Dashboard */
+    .welcome {
+      margin-bottom: 32px;
+    }
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 18px;
-}
+    .welcome h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
 
-.bank-card {
-  min-height: 205px;
-  padding: 23px;
-  border-radius: 14px;
-  color: white;
-  background: linear-gradient(135deg,#142e49,#315a7b);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+    .welcome p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
 
-.bank-card.debit {
-  background: linear-gradient(135deg,#a17a38,#d4b46d);
-  color: #182c40;
-}
+    /* Balance card */
+    .balance {
+      background: linear-gradient(135deg, #0f2744 0%, #1a3a5c 100%);
+      color: white;
+      padding: 32px 36px;
+      border-radius: 16px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
 
-.card-number {
-  font-size: 19px;
-  letter-spacing: 2px;
-}
+    .balance::after {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(201,162,39,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
 
-.card-bottom {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  gap: 10px;
-}
+    .balance small {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 8px;
+    }
 
-.card-label {
-  font-size: 12px;
-  letter-spacing: 2px;
-}
+    .amount {
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
 
-nav {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 20px 0;
-}
+    .balance .sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+    }
 
-nav button {
-  background: white;
-  color: #102b45;
-  border: 1px solid #dce2e9;
-}
+    /* Navigation */
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
 
-.logout {
-  background: #f0e5e5;
-  color: #a52e2e;
-}
+    nav button {
+      background: white;
+      color: var(--navy);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+    }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: #778494;
-  font-size: 12px;
-}
+    nav button:hover {
+      background: #f0f3f7;
+      border-color: #cdd5e0;
+    }
 
-@media(max-width:600px) {
-  .cards { grid-template-columns: 1fr; }
-  .container { margin: 25px auto; }
-  .auth { padding: 23px; }
-  .balance { padding: 23px; }
-  header { padding: 19px 5%; }
-  .detail-row { font-size: 13px; }
-}
-</style>
+    nav .logout {
+      background: #fef2f2;
+      color: #b91c1c;
+      border-color: #fecaca;
+      margin-left: auto;
+    }
+
+    nav .logout:hover {
+      background: #fee2e2;
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--card);
+      padding: 28px 32px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .panel h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f2f5;
+      font-size: 0.95rem;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-row span {
+      color: var(--muted);
+    }
+
+    .detail-row strong {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Cards section */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .bank-card {
+      min-height: 200px;
+      padding: 24px;
+      border-radius: 14px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bank-card.credit {
+      background: linear-gradient(145deg, #0f2744, #1e4568);
+    }
+
+    .bank-card.debit {
+      background: linear-gradient(145deg, #8b6b1f, #c9a227);
+      color: #1a2b3c;
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      opacity: 0.85;
+      text-transform: uppercase;
+    }
+
+    .card-number {
+      font-size: 1.25rem;
+      letter-spacing: 3px;
+      font-weight: 500;
+      margin: 18px 0;
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      gap: 12px;
+    }
+
+    .card-bottom strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Empty state */
+    .empty {
+      color: var(--muted);
+      font-size: 0.95rem;
+      padding: 12px 0;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding: 28px 16px 48px;
+      }
+      .auth {
+        margin-top: 32px;
+        padding: 32px 24px;
+      }
+      .balance {
+        padding: 26px 24px;
+      }
+      .panel {
+        padding: 22px 20px;
+      }
+      nav .logout {
+        margin-left: 0;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
 <header>
   <div class="brand">FIRST<span>BANK</span></div>
-  <div>Personal Banking</div>
+  <div class="header-right">Personal Banking</div>
 </header>
 
-<main class="container">
-
-<section id="authSection" class="auth">
-
-  <div id="loginForm">
-    <h2>Welcome Back</h2>
-    <p>Sign in to access your account.</p>
-
-    <form id="login">
-      <input id="loginUser" placeholder="Username" required>
-      <input id="loginPass" type="password"
-        placeholder="Password" required>
-      <button class="primary" type="submit">Sign In</button>
-    </form>
-
-    <p>New here?
-      <button class="switch" onclick="showSignup()">
-        Create an account
-      </button>
-    </p>
-  </div>
-
-  <div id="signupForm" class="hidden">
-    <h2>Open Your Account</h2>
-    <p>Create your personal banking profile.</p>
-
-    <form id="signup">
-      <input id="fullName" placeholder="Full name" required>
-      <input id="newUser" placeholder="Choose username" required>
-      <input id="newPass" type="password"
-        placeholder="Create password" minlength="8" required>
-      <input id="confirmPass" type="password"
-        placeholder="Confirm password" minlength="8" required>
-      <button class="primary" type="submit">
-        Create Account
-      </button>
-    </form>
-
-    <p>Already registered?
-      <button class="switch" onclick="showLogin()">
-        Sign in
-      </button>
-    </p>
-  </div>
-
-  <p id="authMessage" class="message"></p>
-</section>
-
-<section id="dashboard" class="hidden">
-
-  <div class="welcome">
-    <h1 id="welcomeName">Welcome Sandra,</h1>
-    <p>It's good to see you again.</p>
-  </div>
-
-  <div class="balance">
-    <small>TOTAL AVAILABLE BALANCE</small>
-    <div class="amount" id="balance">$3,600,000.00</div>
-    <small>USD · Personal Checking</small>
-  </div>
-
-  <nav>
-    <button onclick="showSection('account')">Account</button>
-    <button onclick="showSection('cards')">My Cards</button>
-    <button onclick="showSection('transactions')">Transactions</button>
-    <button class="logout" onclick="logout()">Log Out</button>
-  </nav>
-
-  <section id="accountSection" class="panel">
-    <h2>Account Details</h2>
-
-    <div class="detail-row">
-      <span>Account holder</span>
-      <strong id="accountHolder">Sandra</strong>
+<main>
+  <!-- Auth Section -->
+  <section id="authSection" class="auth">
+    <div id="loginForm">
+      <h2>Welcome Back</h2>
+      <p>Sign in to access your account.</p>
+      <form id="login">
+        <input id="loginUser" placeholder="Username" required autocomplete="username">
+        <input id="loginPass" type="password" placeholder="Password" required autocomplete="current-password">
+        <button class="primary" type="submit">Sign In</button>
+      </form>
+      <p class="auth-footer">
+        New here?
+        <button class="switch" onclick="showSignup()">Create an account</button>
+      </p>
     </div>
 
-    <div class="detail-row">
-      <span>Account type</span>
-      <strong>Personal Checking</strong>
+    <div id="signupForm" class="hidden">
+      <h2>Open Your Account</h2>
+      <p>Create your personal banking profile.</p>
+      <form id="signup">
+        <input id="fullName" placeholder="Full name" required>
+        <input id="newUser" placeholder="Choose username" required autocomplete="username">
+        <input id="newPass" type="password" placeholder="Create password (min. 8 characters)" minlength="8" required>
+        <input id="confirmPass" type="password" placeholder="Confirm password" minlength="8" required>
+        <button class="primary" type="submit">Create Account</button>
+      </form>
+      <p class="auth-footer">
+        Already registered?
+        <button class="switch" onclick="showLogin()">Sign in</button>
+      </p>
     </div>
 
-    <div class="detail-row">
-      <span>Account number</span>
-      <strong>•••• •••• 4821</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>Currency</span>
-      <strong>US Dollar (USD)</strong>
-    </div>
-
-    <div class="detail-row">
-      <span>Account status</span>
-      <strong>Active</strong>
-    </div>
+    <p id="authMessage" class="message"></p>
   </section>
 
-  <section id="cardsSection" class="panel hidden">
-    <h2>My Cards</h2>
+  <!-- Dashboard -->
+  <section id="dashboard" class="hidden">
+    <div class="welcome">
+      <h1 id="welcomeName">Welcome,</h1>
+      <p>It's good to see you again.</p>
+    </div>
 
-    <div class="cards">
+    <div class="balance">
+      <small>Total Available Balance</small>
+      <div class="amount" id="balance">$0.00</div>
+      <div class="sub">USD · Personal Checking</div>
+    </div>
 
-      <div class="bank-card">
-        <div class="card-label">FIRST BANK · CREDIT</div>
-        <div class="card-number">•••• •••• •••• 4821</div>
+    <nav>
+      <button onclick="showSection('account')">Account</button>
+      <button onclick="showSection('cards')">My Cards</button>
+      <button onclick="showSection('transactions')">Transactions</button>
+      <button class="logout" onclick="logout()">Log Out</button>
+    </nav>
 
-        <div class="card-bottom">
-          <div>
-            CARDHOLDER<br>
-            <strong id="creditName">SANDRA</strong>
+    <section id="accountSection" class="panel">
+      <h2>Account Details</h2>
+      <div class="detail-row">
+        <span>Account holder</span>
+        <strong id="accountHolder">—</strong>
+      </div>
+      <div class="detail-row">
+        <span>Account type</span>
+        <strong>Personal Checking</strong>
+      </div>
+      <div class="detail-row">
+        <span>Account number</span>
+        <strong>•••• •••• 4821</strong>
+      </div>
+      <div class="detail-row">
+        <span>Currency</span>
+        <strong>US Dollar (USD)</strong>
+      </div>
+      <div class="detail-row">
+        <span>Account status</span>
+        <strong>Active</strong>
+      </div>
+    </section>
+
+    <section id="cardsSection" class="panel hidden">
+      <h2>My Cards</h2>
+      <div class="cards">
+        <div class="bank-card credit">
+          <div class="card-label">First Bank · Credit</div>
+          <div class="card-number">•••• •••• •••• 4821</div>
+          <div class="card-bottom">
+            <div>
+              Cardholder
+              <strong id="creditName">—</strong>
+            </div>
+            <div>
+              Credit Limit
+              <strong>$25,000.00</strong>
+            </div>
           </div>
+        </div>
 
-          <div>
-            CREDIT LIMIT<br>
-            <strong>$25,000.00</strong>
+        <div class="bank-card debit">
+          <div class="card-label">First Bank · Debit</div>
+          <div class="card-number">•••• •••• •••• 7294</div>
+          <div class="card-bottom">
+            <div>
+              Cardholder
+              <strong id="debitName">—</strong>
+            </div>
+            <div>
+              Linked Account
+              <strong>Checking</strong>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="bank-card debit">
-        <div class="card-label">FIRST BANK · DEBIT</div>
-        <div class="card-number">•••• •••• •••• 7294</div>
-
-        <div class="card-bottom">
-          <div>
-            CARDHOLDER<br>
-            <strong id="debitName">SANDRA</strong>
-          </div>
-
-          <div>
-            LINKED ACCOUNT<br>
-            <strong>CHECKING</strong>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <section id="transactionsSection" class="panel hidden">
+      <h2>Transaction History</h2>
+      <p class="empty">No transactions to display yet.</p>
+    </section>
   </section>
-
-  <section id="transactionsSection" class="panel hidden">
-    <h2>Transaction History</h2>
-    <p>No transactions to display yet.</p>
-  </section>
-
-</section>
 </main>
 
 <footer>
-  First Bank · Personal website prototype.
-  Balances and card details are simulated and are not financial assets.
+  First Bank · Personal website prototype. Balances and card details are simulated and are not financial assets.
 </footer>
 
 <script>
+  const STORAGE_KEY = "firstBankUsers";
+  const SESSION_KEY = "firstBankSession";
 
-const STORAGE_KEY = "firstBankUsers";
-const SESSION_KEY = "firstBankSession";
-
-function getUsers() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  } catch {
-    return {};
-  }
-}
-
-async function hashPassword(password) {
-  const data = new TextEncoder().encode(password);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-
-  return Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2,"0"))
-    .join("");
-}
-
-function showLogin() {
-  document.getElementById("loginForm").classList.remove("hidden");
-  document.getElementById("signupForm").classList.add("hidden");
-  document.getElementById("authMessage").textContent = "";
-}
-
-function showSignup() {
-  document.getElementById("signupForm").classList.remove("hidden");
-  document.getElementById("loginForm").classList.add("hidden");
-  document.getElementById("authMessage").textContent = "";
-}
-
-document.getElementById("signup").addEventListener("submit",
-async function(e) {
-  e.preventDefault();
-
-  const name = document.getElementById("fullName").value.trim();
-  const username = document.getElementById("newUser").value.trim().toLowerCase();
-  const password = document.getElementById("newPass").value;
-  const confirm = document.getElementById("confirmPass").value;
-  const message = document.getElementById("authMessage");
-
-  if (password !== confirm) {
-    message.textContent = "Passwords do not match.";
-    return;
+  function getUsers() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch {
+      return {};
+    }
   }
 
-  if (password.length < 8) {
-    message.textContent = "Password must be at least 8 characters.";
-    return;
+  async function hashPassword(password) {
+    const data = new TextEncoder().encode(password);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hash))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
   }
 
-  const users = getUsers();
-
-  if (users[username]) {
-    message.textContent = "That username is already registered.";
-    return;
+  function showLogin() {
+    document.getElementById("loginForm").classList.remove("hidden");
+    document.getElementById("signupForm").classList.add("hidden");
+    document.getElementById("authMessage").textContent = "";
   }
 
-  try {
-    users[username] = {
-      name: name,
-      passwordHash: await hashPassword(password),
-      balance: 3600000
-    };
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-    sessionStorage.setItem(SESSION_KEY, username);
-
-    openDashboard(username);
-
-  } catch {
-    message.textContent = "Your browser could not create the account.";
-  }
-});
-
-document.getElementById("login").addEventListener("submit",
-async function(e) {
-  e.preventDefault();
-
-  const username = document.getElementById("loginUser").value.trim().toLowerCase();
-  const password = document.getElementById("loginPass").value;
-  const users = getUsers();
-  const message = document.getElementById("authMessage");
-
-  if (!users[username]) {
-    message.textContent = "Incorrect username or password.";
-    return;
+  function showSignup() {
+    document.getElementById("signupForm").classList.remove("hidden");
+    document.getElementById("loginForm").classList.add("hidden");
+    document.getElementById("authMessage").textContent = "";
   }
 
-  try {
-    const hash = await hashPassword(password);
+  document.getElementById("signup").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const name = document.getElementById("fullName").value.trim();
+    const username = document.getElementById("newUser").value.trim().toLowerCase();
+    const password = document.getElementById("newPass").value;
+    const confirm = document.getElementById("confirmPass").value;
+    const message = document.getElementById("authMessage");
 
-    if (hash !== users[username].passwordHash) {
+    if (password !== confirm) {
+      message.textContent = "Passwords do not match.";
+      return;
+    }
+    if (password.length < 8) {
+      message.textContent = "Password must be at least 8 characters.";
+      return;
+    }
+
+    const users = getUsers();
+    if (users[username]) {
+      message.textContent = "That username is already registered.";
+      return;
+    }
+
+    try {
+      users[username] = {
+        name: name,
+        passwordHash: await hashPassword(password),
+        balance: 3600000
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+      sessionStorage.setItem(SESSION_KEY, username);
+      openDashboard(username);
+    } catch {
+      message.textContent = "Your browser could not create the account.";
+    }
+  });
+
+  document.getElementById("login").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const username = document.getElementById("loginUser").value.trim().toLowerCase();
+    const password = document.getElementById("loginPass").value;
+    const users = getUsers();
+    const message = document.getElementById("authMessage");
+
+    if (!users[username]) {
       message.textContent = "Incorrect username or password.";
       return;
     }
 
-    sessionStorage.setItem(SESSION_KEY, username);
-    openDashboard(username);
-
-  } catch {
-    message.textContent = "Login could not be completed.";
-  }
-});
-
-function openDashboard(username) {
-  const users = getUsers();
-  const user = users[username];
-
-  if (!user) return;
-
-  document.getElementById("authSection").classList.add("hidden");
-  document.getElementById("dashboard").classList.remove("hidden");
-
-  document.getElementById("welcomeName").textContent =
-    "Welcome " + user.name + ",";
-
-  document.getElementById("accountHolder").textContent = user.name;
-
-  document.getElementById("creditName").textContent =
-    user.name.toUpperCase();
-
-  document.getElementById("debitName").textContent =
-    user.name.toUpperCase();
-
-  document.getElementById("balance").textContent =
-    "$" + Number(user.balance).toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-
-  showSection("account");
-}
-
-function showSection(section) {
-  ["account","cards","transactions"].forEach(name => {
-    document.getElementById(name + "Section").classList.add("hidden");
+    try {
+      const hash = await hashPassword(password);
+      if (hash !== users[username].passwordHash) {
+        message.textContent = "Incorrect username or password.";
+        return;
+      }
+      sessionStorage.setItem(SESSION_KEY, username);
+      openDashboard(username);
+    } catch {
+      message.textContent = "Login could not be completed.";
+    }
   });
 
-  document.getElementById(section + "Section").classList.remove("hidden");
-}
+  function openDashboard(username) {
+    const users = getUsers();
+    const user = users[username];
+    if (!user) return;
 
-function logout() {
-  sessionStorage.removeItem(SESSION_KEY);
+    document.getElementById("authSection").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
 
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("authSection").classList.remove("hidden");
+    document.getElementById("welcomeName").textContent = "Welcome " + user.name + ",";
+    document.getElementById("accountHolder").textContent = user.name;
+    document.getElementById("creditName").textContent = user.name.toUpperCase();
+    document.getElementById("debitName").textContent = user.name.toUpperCase();
+    document.getElementById("balance").textContent =
+      "$" + Number(user.balance).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
 
-  document.getElementById("login").reset();
+    showSection("account");
+  }
 
-  showLogin();
-}
+  function showSection(section) {
+    ["account", "cards", "transactions"].forEach(name => {
+      document.getElementById(name + "Section").classList.add("hidden");
+    });
+    document.getElementById(section + "Section").classList.remove("hidden");
+  }
 
-const savedSession = sessionStorage.getItem(SESSION_KEY);
+  function logout() {
+    sessionStorage.removeItem(SESSION_KEY);
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("authSection").classList.remove("hidden");
+    document.getElementById("login").reset();
+    showLogin();
+  }
 
-if (savedSession) {
-  openDashboard(savedSession);
-}
-
+  const savedSession = sessionStorage.getItem(SESSION_KEY);
+  if (savedSession) {
+    openDashboard(savedSession);
+  }
 </script>
-
 </body>
 </html>
