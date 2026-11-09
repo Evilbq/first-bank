@@ -16,10 +16,6 @@ First Bank is a modern, client-side banking interface that demonstrates a clean 
 - Responsive design optimized for desktop and mobile
 - Clean, classic banking aesthetic
 
-## Live Demo
-
-**[View Live Site](https://evilbq.github.io/first-bank)**
-
 ## Tech Stack
 
 - HTML5
